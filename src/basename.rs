@@ -42,7 +42,7 @@ fn basename(name: &str, suffix: Option<~str>) -> ~str {
     if suffix.is_some() {
         let suffix = suffix.unwrap();
         if bname.ends_with(suffix) {
-            bname = bname.slice_to(bname.len() - suffix.len() - 1);
+            bname = bname.slice_to(bname.len() - suffix.len());
         }
     }
     bname.to_owned()
