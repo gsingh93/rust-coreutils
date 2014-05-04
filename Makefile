@@ -1,11 +1,13 @@
 SRCDIR := src
 BINDIR := bin
 
-progs := $(patsubst $(SRCDIR)/%.rs,$(BINDIR)/%,$(wildcard $(SRCDIR)/*.rs))
+# Compile all programs in the src/ folder except library files
+LIB := $(SRCDIR)/util.rs
+PROGS := $(patsubst $(SRCDIR)/%.rs,$(BINDIR)/%,$(filter-out $(LIB),$(wildcard $(SRCDIR)/*.rs)))
 
-all: $(progs)
+all: $(PROGS)
 
-$(progs): $(BINDIR)/% : $(SRCDIR)/%.rs | $(BINDIR)
+$(PROGS): $(BINDIR)/% : $(SRCDIR)/%.rs $(LIB) | $(BINDIR)
 	rustc $< -o $@
 
 $(BINDIR):
